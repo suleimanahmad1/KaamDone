@@ -31,7 +31,7 @@ export default function Home() {
   const debouncedSearch = useDebouncedValue(searchInput, SEARCH_DEBOUNCE_MS);
   const [statusFilter, setStatusFilter] = useState("");
   const [priorityFilter, setPriorityFilter] = useState("");
-  const [sortBy, setSortBy] = useState("createdAt");
+  const sortBy = "createdAt";
   const [viewMode, setViewMode] = useState(() => {
     const saved = localStorage.getItem(VIEW_KEY);
     return saved === "list" ? "list" : "grid";
@@ -213,48 +213,40 @@ export default function Home() {
               ))}
             </select>
 
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
-              aria-label="Sort tasks"
+            <div
+              className="flex w-full overflow-hidden rounded-lg border border-slate-300 bg-white dark:border-slate-600 dark:bg-slate-900"
+              role="group"
+              aria-label="Task view mode"
             >
-              <option value="createdAt">Newest first</option>
-              <option value="updatedAt">Recently updated</option>
-              <option value="dueDate">Due date</option>
-              <option value="priority">Priority</option>
-            </select>
+              <button
+                type="button"
+                onClick={() => setView("grid")}
+                className={`inline-flex flex-1 items-center justify-center gap-1.5 py-2 text-sm font-medium transition ${
+                  viewMode === "grid"
+                    ? "bg-indigo-600 text-white"
+                    : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800"
+                }`}
+                aria-pressed={viewMode === "grid"}
+              >
+                <FaTh />
+                Grid
+              </button>
+              <button
+                type="button"
+                onClick={() => setView("list")}
+                className={`inline-flex flex-1 items-center justify-center gap-1.5 border-l border-slate-300 py-2 text-sm font-medium transition dark:border-slate-600 ${
+                  viewMode === "list"
+                    ? "bg-indigo-600 text-white"
+                    : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800"
+                }`}
+                aria-pressed={viewMode === "list"}
+              >
+                <FaList />
+                List
+              </button>
+            </div>
           </div>
 
-          <div className="mt-4 flex items-center justify-end gap-2 border-t border-slate-100 pt-4 dark:border-slate-700">
-            <span className="mr-2 text-sm text-slate-500 dark:text-slate-400">View:</span>
-            <button
-              type="button"
-              onClick={() => setView("grid")}
-              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition ${
-                viewMode === "grid"
-                  ? "bg-indigo-600 text-white"
-                  : "border border-slate-300 text-slate-600 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-700"
-              }`}
-              aria-pressed={viewMode === "grid"}
-            >
-              <FaTh />
-              Cards
-            </button>
-            <button
-              type="button"
-              onClick={() => setView("list")}
-              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition ${
-                viewMode === "list"
-                  ? "bg-indigo-600 text-white"
-                  : "border border-slate-300 text-slate-600 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-700"
-              }`}
-              aria-pressed={viewMode === "list"}
-            >
-              <FaList />
-              List
-            </button>
-          </div>
         </section>
 
         {loading ? (
