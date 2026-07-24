@@ -12,6 +12,16 @@ Full-stack **MERN** task manager — secure login, tasks with deadlines, file at
 
 ---
 
+## Demo Dashboard
+
+A standalone demo dashboard (`dashboard.html`) is included for previewing the UI style:
+
+- Open `dashboard.html` directly in any browser (no server needed)
+- Dark theme with animated stats, bar chart, and activity feed
+- Status indicator: **Claude is Running**
+
+---
+
 ## What you can do
 
 **Tasks**
